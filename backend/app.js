@@ -6,19 +6,31 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+const GNEWS_API_URL = 'https://gnews.io/api/v4';
+
 app.get('/news', async (req, res) => {
+    const { q, page, category, country, lang } = req.query;
+
     try {
-        const response = await axios.get(`https://gnews.io/api/v4/top-headlines`, {
+        const response = await axios.get(`${GNEWS_API_URL}/top-headlines`, {
             params: {
-                token: process.env.GNEWS_API_KEY,
-                lang: 'en',
-                country: 'us',
-            },
+                apikey: process.env.GNEWS_API_KEY,
+                q: q || '',
+                page: page || 1,
+                category: category || 'general',
+                country: country || 'us',
+                lang: lang || 'en'
+            }
         });
+
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching news' });
+        res.status(500).json({
+            message: 'Error fetching news',
+            error: error.message
+        });
     }
+
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));
