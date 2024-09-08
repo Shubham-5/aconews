@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const debouncedSearch = useCallback(() => {
+    const timeoutId = setTimeout(() => {
+      onSearch(query);
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [query, onSearch]);
+
+  const handleSearchChange = (e) => {
+    setQuery(e.target.value);
+    debouncedSearch();
   };
 
   return (
@@ -17,8 +30,11 @@ const Navbar = () => {
         <div className="hidden md:block">
           <input
             type="text"
+            value={query}
             placeholder="Search news..."
             className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:border-blue-600"
+            onChange={handleSearchChange}
+            aria-label="Search News"
           />
         </div>
 
@@ -26,6 +42,8 @@ const Navbar = () => {
           <button
             onClick={toggleMobileMenu}
             className="text-gray-700 focus:outline-none"
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Toggle mobile menu"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +63,20 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isMobileMenuOpen && <div className="md:hidden"></div>}
+      {isMobileMenuOpen && (
+        <div className="md:hidden">
+          <div className="flex justify-center">
+            <input
+              type="text"
+              value={query}
+              placeholder="Search news..."
+              className="border border-gray-300 rounded-md px-3 py-1 mt-2 focus:outline-none focus:border-blue-600 w-full"
+              onChange={handleSearchChange}
+              aria-label="Search News"
+            />
+          </div>
+        </div>
+      )}
     </header>
   );
 };
