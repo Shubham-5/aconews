@@ -34,7 +34,7 @@ const Filter = ({ onFilter }) => {
         className="p-2 rounded-lg hover:border-gray-300 border text-gray-700 sm:text-sm"
       >
         <option value="en">English</option>
-        <option value="es">Hindi</option>
+        <option value="hi">Hindi</option>
       </select>
       <button
         onClick={applyFilter}
