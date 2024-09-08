@@ -1,5 +1,11 @@
+import NewsFeed from "./components/NewsFeed";
+
 function App() {
-  return <>ACO NEWS</>;
+  return (
+    <>
+      <NewsFeed />
+    </>
+  );
 }
 
 export default App;
