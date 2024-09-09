@@ -1,9 +1,10 @@
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+
 import Filter from "./components/Filter";
 import Navbar from "./components/Navbar";
 import NewsFeed from "./components/NewsFeed";
 import Pagination from "./components/Pagination";
-import axios from "axios";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -11,15 +12,15 @@ function App() {
   const [filter, setFilter] = useState({});
 
   const fetchNews = useCallback(
-    (query = "", page = 1) => {
+    (query) => {
       axios
         .get("http://localhost:5000/news", {
-          params: { q: query, page, ...filter },
+          params: { q: query, page: currentPage, ...filter },
         })
         .then((res) => setArticles(res.data.articles))
         .catch((err) => console.log(err));
     },
-    [filter]
+    [filter, currentPage]
   );
 
   useEffect(() => {

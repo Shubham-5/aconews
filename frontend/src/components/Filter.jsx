@@ -18,6 +18,7 @@ const Filter = ({ onFilter }) => {
       >
         <option value="all">All Categories</option>
         <option value="technology">Technology</option>
+        <option value="entertainment">Entertainment</option>
         <option value="sports">Sports</option>
       </select>
       <select
