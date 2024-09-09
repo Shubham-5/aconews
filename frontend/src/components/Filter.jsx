@@ -10,7 +10,7 @@ const Filter = ({ onFilter }) => {
   };
 
   return (
-    <div className="flex space-x-4 my-4 justify-center">
+    <div className="flex space-x-4 my-4 justify-center sticky top-5 z-20">
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}

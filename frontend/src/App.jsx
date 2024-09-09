@@ -6,12 +6,13 @@ import Filter from "./components/Filter";
 import Navbar from "./components/Navbar";
 import NewsFeed from "./components/NewsFeed";
 import Pagination from "./components/Pagination";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 
 function fetchNews({ queryKey }) {
   const [_, query, currentPage, filter] = queryKey;
   return axios
     .get("https://aconews.onrender.com/news", {
-      params: { q: query, page: currentPage, ...filter },
+      params: { q: query || "", page: currentPage, ...filter },
     })
     .then((res) => res.data);
 }
@@ -32,13 +33,7 @@ export default function App() {
       <Navbar onSearch={(newQuery) => setQuery(newQuery)} />
       <Filter onFilter={(newFilter) => setFilter(newFilter)} />
 
-      {isLoading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="h-80 w-full animate-pulse bg-gray-200 rounded-lg"></div>
-          <div className="h-80 w-full animate-pulse bg-gray-200 rounded-lg"></div>
-          <div className="h-80 w-full animate-pulse bg-gray-200 rounded-lg"></div>
-        </div>
-      )}
+      {isLoading && <LoadingSkeleton />}
 
       {isError && <p>Something went wrong while fetching the news.</p>}
 
