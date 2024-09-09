@@ -22,7 +22,7 @@ const Navbar = ({ onSearch }) => {
 
   return (
     <header>
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="container mx-auto py-3 flex justify-between items-center">
         <div className="text-xl font-bold text-gray-800 first-letter:text-blue-600">
           <a href="/">Aco News</a>
         </div>
