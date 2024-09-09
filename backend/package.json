@@ -1,0 +1,12 @@
+{
+  "name": "aconews",
+  "version": "1.0.0",
+  "description": "A news application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Shubham",
+  "license": "ISC"
+}
