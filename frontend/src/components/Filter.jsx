@@ -6,7 +6,7 @@ const Filter = ({ onFilter }) => {
   const [language, setLanguage] = useState("en");
 
   const applyFilter = () => {
-    onFilter({ category, country, language });
+    onFilter({ category, country, lang: language });
   };
 
   return (
