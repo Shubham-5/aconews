@@ -10,6 +10,7 @@ function App() {
   const [articles, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const fetchNews = useCallback(
     (query) => {
@@ -26,6 +27,16 @@ function App() {
   useEffect(() => {
     fetchNews();
   }, [fetchNews]);
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="h-40 w-40 pulse bg-gray-50"></div>
+        <div className="h-40 w-40 pulse bg-gray-50"></div>
+        <div className="h-40 w-40 pulse bg-gray-50"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4 space-y-8">
